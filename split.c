@@ -6,11 +6,11 @@
 /*   By: rarias-p <rarias-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 17:58:14 by rarias-p          #+#    #+#             */
-/*   Updated: 2021/06/17 18:08:43 by rarias-p         ###   ########.fr       */
+/*   Updated: 2021/06/18 17:27:18 by rarias-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pipex.h>
+#include "pipex.h"
 
 static int	ft_countwords(char const *s, char c)
 {

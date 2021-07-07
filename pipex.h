@@ -6,7 +6,7 @@
 /*   By: rarias-p <rarias-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 17:58:29 by rarias-p          #+#    #+#             */
-/*   Updated: 2021/06/18 19:32:38 by rarias-p         ###   ########.fr       */
+/*   Updated: 2021/07/07 12:21:59 by rarias-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
+
+typedef struct s_pipex
+{
+	pid_t	pid;
+	int		fd1;
+	int		fd2;
+	int		fd3;
+	int		pipe_fd[2];
+	char	**paths;
+	char	**splitted;
+}				t_pipex;
 
 /*                                 LIBFT                                      */
 

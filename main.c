@@ -6,7 +6,7 @@
 /*   By: rarias-p <rarias-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 17:25:19 by rarias-p          #+#    #+#             */
-/*   Updated: 2021/06/18 19:55:41 by rarias-p         ###   ########.fr       */
+/*   Updated: 2021/07/07 13:35:02 by rarias-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,44 @@ char	**get_paths(char *const *env, char **splitted)
 
 int	main(int argc, char const **argv, char *const *env)
 {
-	pid_t	pid;
+	t_pipex	*pipex;
 	int		i;
-	int		fd;
-	char	**paths;
-	char	**splitted;
 
-	if (argc == 3)
+	pipex = malloc(sizeof(t_pipex));
+	if (argc == 5)
 	{
-		splitted = ft_split(argv[2], ' ');
-		paths = get_paths(env, splitted);
-		fd = open(argv[1], O_RDONLY);
-		dup2(fd, 0);
+		pipex->splitted = ft_split(argv[2], ' ');
+		pipex->paths = get_paths(env, pipex->splitted);
+		pipex->fd1 = open(argv[1], O_RDONLY);
+		dup2(pipex->fd1, 0);
 		i = -1;
-		pid = fork();
-		if (pid == 0)
-			while (paths[++i])
-				execve(paths[i], splitted, env);
+		pipe(pipex->pipe_fd);
+		pipex->pid = fork();
+		dup2(pipex->pipe_fd[1], 1);
+		dup2(pipex->pipe_fd[0], 0);
+		if (pipex->pid == 0)
+		{
+			while (pipex->paths[++i])
+				execve(pipex->paths[i], pipex->splitted, env);
+		}
+		else
+		{
+			free(pipex->splitted);
+			free(pipex->paths);
+			pipex->splitted = ft_split(argv[3], ' ');
+			pipex->paths = get_paths(env, pipex->splitted);
+			pipex->fd2 = open(argv[4], O_CREAT | O_WRONLY);
+			dup2(pipex->fd2, 1);
+			pipex->pid = fork();
+			if (pipex->pid == 0)
+			{
+				while (pipex->paths[++i])
+					execve(pipex->paths[i], pipex->splitted, env);
+			}
+			close(pipex->pipe_fd[0]);
+			close(pipex->pipe_fd[1]);
+			close(pipex->fd1);
+			close(pipex->fd2);
+		}		
 	}
-	system("leaks a.out");
 }

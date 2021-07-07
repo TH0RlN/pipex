@@ -1,0 +1,8 @@
+
+.out
+main.c
+pipex.h
+salida.txt
+split.c
+utils.c
+utils2.c

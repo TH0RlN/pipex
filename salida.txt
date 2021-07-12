@@ -1,6 +1,0 @@
-void	first_command(t_pipex *pipex, int i, char const **argv,$
-void	second_command(t_pipex *pipex, int i, char const **argv,$
-	int		i;$
-	int		i;$
-int	main(int argc, char const **argv, char *const *env)$
-	int		i;$

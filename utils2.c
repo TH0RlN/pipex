@@ -6,7 +6,7 @@
 /*   By: rarias-p <rarias-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 19:30:45 by rarias-p          #+#    #+#             */
-/*   Updated: 2021/06/18 19:32:02 by rarias-p         ###   ########.fr       */
+/*   Updated: 2021/07/12 17:10:04 by rarias-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,14 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		s[i + j] = s2[j];
 	s[i + j] = '\0';
 	return (s);
+}
+
+void	ft_free_arr(char **arr)
+{
+	int	i;
+
+	i = -1;
+	while (arr[++i])
+		free(arr[i]);
+	free(arr);
 }

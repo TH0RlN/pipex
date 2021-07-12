@@ -6,7 +6,7 @@
 /*   By: rarias-p <rarias-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 17:25:19 by rarias-p          #+#    #+#             */
-/*   Updated: 2021/07/08 17:56:27 by rarias-p         ###   ########.fr       */
+/*   Updated: 2021/07/12 17:52:09 by rarias-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	**join_paths(char **paths, char **splitted)
 char	**get_paths(char *const *env, char **splitted)
 {
 	int		i;
+	char	*aux;
 	char	**split;
 	char	**paths;
 
@@ -70,12 +71,14 @@ char	**get_paths(char *const *env, char **splitted)
 	{
 		if (ft_strchr(env[i], '='))
 		{
-			if (!ft_strcmp("PATH", ft_substr(env[i], 0, 4)))
+			aux = ft_substr(env[i], 0, 5);
+			if (!ft_strcmp("PATH=", aux))
 			{
 				split = ft_split(env[i], '=');
 				paths = ft_split(split[1], ':');
-				//ft_free_arr(split); TO DO: Function to kill does fckn leaks
+				ft_free_arr(split); //TO DO: Function to kill does fckn leaks
 			}
+			free(aux);
 		}
 	}
 	return (join_paths(paths, splitted));
@@ -93,18 +96,27 @@ int	main(int argc, char const **argv, char *const *env)
 		pipe(pipex->pipe_fd);
 		pipex->pid = fork();
 		if (pipex->pid == 0)
+		{
 			first_command(pipex, i, argv, env);
+			ft_free_arr(pipex->paths);
+		}
 		else
 		{
 			close(pipex->pipe_fd[1]);
+			//free(pipex->splitted);
 			pipex->pid = fork();
 			if (pipex->pid == 0)
 			{
 				waitpid(pipex->pid, &pipex->status, 0);
 				second_command(pipex, i, argv, env);
+				ft_free_arr(pipex->paths);
 			}
 			else
+			{
 				close(pipex->pipe_fd[0]);
+				free(pipex);
+			}
 		}
 	}
+	//system("leaks debug.out");
 }

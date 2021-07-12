@@ -1,0 +1,30 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "test",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-g",
+                "main.c",
+                "utils.c",
+                "utils2.c",
+                "split.c",
+                "-o",
+                "${fileDirname}/a.out"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Tarea generada por el depurador."
+        }
+    ],
+    "version": "2.0.0"
+}

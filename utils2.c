@@ -6,7 +6,7 @@
 /*   By: rarias-p <rarias-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 19:30:45 by rarias-p          #+#    #+#             */
-/*   Updated: 2021/07/12 17:10:04 by rarias-p         ###   ########.fr       */
+/*   Updated: 2021/07/19 17:02:37 by rarias-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		s[i + j] = s2[j];
 	s[i + j] = '\0';
 	return (s);
+}
+
+void	get_splits(t_pipex *pipex, char const **argv, char *const *env)
+{
+	pipex->splitted1 = ft_split(argv[2], ' ');
+	pipex->paths1 = get_paths(env, pipex->splitted1);
+	pipex->splitted2 = ft_split(argv[3], ' ');
+	pipex->paths2 = get_paths(env, pipex->splitted2);
 }
 
 void	ft_free_arr(char **arr)

@@ -6,7 +6,7 @@
 /*   By: rarias-p <rarias-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 17:58:29 by rarias-p          #+#    #+#             */
-/*   Updated: 2021/07/12 17:00:38 by rarias-p         ###   ########.fr       */
+/*   Updated: 2021/07/19 16:57:33 by rarias-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,16 @@ typedef struct s_pipex
 	int		fd3;
 	int		pipe_fd[2];
 	int		status;
-	char	**paths;
-	char	**splitted;
+	char	**paths1;
+	char	**paths2;
+	char	**splitted1;
+	char	**splitted2;
 }				t_pipex;
 
+void 	check_leaks(void); ///////////////////////////////////////////////////////////////////////////
+
 char	**get_paths		(char *const *env, char **splitted);
+void	get_splits		(t_pipex *pipex, char const **argv, char *const *env);
 char	**join_paths	(char **paths, char **splitted);
 void	first_command	(t_pipex *pipex, int i, char const **argv,
 			char *const *env);

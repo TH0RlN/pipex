@@ -6,7 +6,7 @@
 /*   By: rarias-p <rarias-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 19:30:45 by rarias-p          #+#    #+#             */
-/*   Updated: 2021/07/19 17:02:37 by rarias-p         ###   ########.fr       */
+/*   Updated: 2021/09/27 16:39:22 by rarias-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,13 @@ void	ft_free_arr(char **arr)
 	while (arr[++i])
 		free(arr[i]);
 	free(arr);
+}
+
+void	freer(t_pipex *pipex)
+{
+	ft_free_arr(pipex->paths1);
+	ft_free_arr(pipex->paths2);
+	ft_free_arr(pipex->splitted1);
+	ft_free_arr(pipex->splitted2);
+	free(pipex);
 }

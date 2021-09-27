@@ -6,7 +6,7 @@
 /*   By: rarias-p <rarias-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 17:25:19 by rarias-p          #+#    #+#             */
-/*   Updated: 2021/07/19 17:04:02 by rarias-p         ###   ########.fr       */
+/*   Updated: 2021/09/27 17:46:33 by rarias-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	second_command(t_pipex *pipex, int i, char const **argv,
 	dup2(pipex->pipe_fd[0], 0);
 	close(pipex->pipe_fd[0]);
 	dup2(pipex->fd2, 1);
+	close(pipex->fd2);
 	close(pipex->pipe_fd[1]);
 	while (pipex->paths2[++i])
 		execve(pipex->paths2[i], pipex->splitted2, env);
@@ -104,13 +105,8 @@ int	main(int argc, char const **argv, char *const *env)
 			else
 			{
 				close(pipex->pipe_fd[0]);
-				ft_free_arr(pipex->paths1);
-				ft_free_arr(pipex->paths2);
-				ft_free_arr(pipex->splitted1);
-				ft_free_arr(pipex->splitted2);
-				free(pipex);
+				freer(pipex);
 			}
 		}
-		check_leaks();
 	}
 }
